@@ -3,7 +3,9 @@ package com.rengwuxian.coursecoroutines._4_flow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
@@ -19,8 +21,15 @@ fun main() = runBlocking<Unit> {
     delay(1000)
     emit(3)
   }
+  val clickFlow = MutableSharedFlow<String>()
+  val readonlyClickFlow = clickFlow.asSharedFlow()
   val sharedFlow = flow1.shareIn(scope, SharingStarted.WhileSubscribed(), 2)
   scope.launch {
+    clickFlow.emit("Hello")
+    delay(1000)
+    clickFlow.emit("Hi")
+    delay(1000)
+    clickFlow.emit("你好")
     val parent = this
     launch {
       delay(4000)
