@@ -43,12 +43,14 @@ fun main() = runBlocking {
       channel.onSend("haha") {
 
       }
+      /* channel 的 onSend()、onReceive()、onReceiveCatching() 只能选其一，不能同时应用
       channel.onReceive {
 
       }
       channel.onReceiveCatching {
 
       }
+      */
       onTimeout(1.seconds) {
 
       }
