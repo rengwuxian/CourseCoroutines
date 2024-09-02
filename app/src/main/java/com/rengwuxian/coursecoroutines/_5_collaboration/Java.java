@@ -45,4 +45,21 @@ public class Java {
       number--;
     }
   }
+
+  ThreadLocal<String> localString = new ThreadLocal<>();
+  String directString;
+
+  void threadLocal() {
+    String string = localString.get();
+    localString.set("rengwuxian");
+    String string1 = directString;
+    directString = "扔物线";
+
+    new Thread() {
+      @Override
+      public void run() {
+        String innerString = localString.get();
+      }
+    }.start();
+  }
 }
